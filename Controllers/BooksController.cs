@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliBookStoreApi.Models;
 using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -39,6 +40,13 @@ namespace AliBookStoreApi.Controllers
                 return NotFound();
             }
             return Ok(book);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBook(CreateBookDto model)
+        {
+            var id = await _booksRepository.CreateBook(model);
+            return Ok(id);
         }
     }
 }

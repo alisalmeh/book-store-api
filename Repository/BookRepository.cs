@@ -41,5 +41,19 @@ namespace AliBookStoreApi.Repository
                                         }).FirstOrDefaultAsync();
             return book;
         }
+
+        public async Task<int> CreateBook(CreateBookDto model)
+        {
+            var book = new Book()
+            {
+                Amount = model.Amount,
+                Title = model.Title,
+                Description = model.Description
+            };
+
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return book.Id;
+        }
     }
 }
