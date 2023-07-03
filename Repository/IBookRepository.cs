@@ -9,5 +9,6 @@ namespace AliBookStoreApi.Repository
     public interface IBookRepository
     {
         Task<List<BookDetailsDto>> GetAllBooks();
+        Task<BookDetailsDto> GetBookDetailsById(int id);
     }
 }

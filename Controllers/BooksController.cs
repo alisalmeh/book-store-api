@@ -29,5 +29,16 @@ namespace AliBookStoreApi.Controllers
             var books = await _booksRepository.GetAllBooks();
             return Ok(books);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookDetailsById(int id)
+        {
+            var book = await _booksRepository.GetBookDetailsById(id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return Ok(book);
+        }
     }
 }

@@ -28,5 +28,18 @@ namespace AliBookStoreApi.Repository
             }).ToListAsync();
             return books;
         }
+
+        public async Task<BookDetailsDto> GetBookDetailsById(int id)
+        {
+            var book = await _context.Books.Where(x => x.Id == id)
+                                        .Select(x => new BookDetailsDto()
+                                        {
+                                            Id = x.Id,
+                                            Title = x.Title,
+                                            Description = x.Description,
+                                            Amount = x.Amount
+                                        }).FirstOrDefaultAsync();
+            return book;
+        }
     }
 }
