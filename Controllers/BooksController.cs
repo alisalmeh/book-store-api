@@ -43,10 +43,22 @@ namespace AliBookStoreApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook(CreateBookDto model)
+        public async Task<IActionResult> CreateBook([FromBody] CreateBookDto model)
         {
             var id = await _booksRepository.CreateBook(model);
             return Ok(id);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] UpdateBookDto model)
+        {
+            var result = await _booksRepository.UpdateBook(id, model);
+
+            if (!result)
+            {
+                return BadRequest("This book id does not exist!");
+            }
+            return Ok(result);
         }
     }
 }

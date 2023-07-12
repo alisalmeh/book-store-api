@@ -55,5 +55,21 @@ namespace AliBookStoreApi.Repository
             await _context.SaveChangesAsync();
             return book.Id;
         }
+
+        public async Task<bool> UpdateBook(int id, UpdateBookDto model)
+        {
+            var book = await _context.Books.Where(x => x.Id == id)
+                                .FirstOrDefaultAsync();
+
+            if (book != null)
+            {
+                book.Title = model.Title;
+                book.Description = model.Description;
+                book.Amount = model.Amount;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }
