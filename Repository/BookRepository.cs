@@ -24,7 +24,7 @@ namespace AliBookStoreApi.Repository
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                Amount = x.Amount
+                Price = x.Price
             }).ToListAsync();
             return books;
         }
@@ -37,7 +37,7 @@ namespace AliBookStoreApi.Repository
                                             Id = x.Id,
                                             Title = x.Title,
                                             Description = x.Description,
-                                            Amount = x.Amount
+                                            Price = x.Price
                                         }).FirstOrDefaultAsync();
             return book;
         }
@@ -46,7 +46,7 @@ namespace AliBookStoreApi.Repository
         {
             var book = new Book()
             {
-                Amount = model.Amount,
+                Price = model.Price,
                 Title = model.Title,
                 Description = model.Description
             };
@@ -65,7 +65,7 @@ namespace AliBookStoreApi.Repository
             {
                 book.Title = model.Title;
                 book.Description = model.Description;
-                book.Amount = model.Amount;
+                book.Price = model.Price;
                 await _context.SaveChangesAsync();
                 return true;
             }
