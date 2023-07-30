@@ -11,10 +11,17 @@ namespace AliBookStoreApi.Models
         [Required(ErrorMessage = "لطفا عنوان کتاب را وارد کنید")]
         public string Title { get; set; }
 
-        [MaxLength(30)]
+        [MaxLength(30, ErrorMessage = "طول توضیحات بیشتر از 30 کرکتر نمیتواند باشد")]
         public string Description { get; set; }
 
-        [Range(1000, 1000000)]
+        [Range(1000, 1000000, ErrorMessage = "مبلغ را بین 1000 تا 1000000 وارد کنید")]
         public int Price { get; set; }
+
+        [Required]
+        public int Password { get; set; }
+
+        [Required]
+        [Compare(nameof(Password), ErrorMessage = "رمز عبور مطابقت ندارد")]
+        public int repeatPassword { get; set; }
     }
 }
