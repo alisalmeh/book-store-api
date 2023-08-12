@@ -21,7 +21,7 @@ namespace AliBookStoreApi.Repository
         {
             var books = await _context.Books.Select(x => new BookDetailsDto()
             {
-                Id = x.BId,
+                Id = x.BookId,
                 Title = x.Title,
                 Description = x.Description,
                 Price = x.Price
@@ -31,10 +31,15 @@ namespace AliBookStoreApi.Repository
 
         public async Task<BookDetailsDto> GetBookDetailsById(int id)
         {
-            var book = await _context.Books.Where(x => x.BId == id)
+            var book = await _context.Books.Where(x => x.Id == id)
                                         .Select(x => new BookDetailsDto()
                                         {
-                                            Id = x.BId,
+                                            Id = x.Id,
+=======
+            var book = await _context.Books.Where(x => x.BookId == id)
+                                        .Select(x => new BookDetailsDto()
+                                        {
+                                            Id = x.BookId,
                                             Title = x.Title,
                                             Description = x.Description,
                                             Price = x.Price
@@ -53,12 +58,12 @@ namespace AliBookStoreApi.Repository
 
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
-            return book.BId;
+            return book.BookId;
         }
 
         public async Task<bool> UpdateBook(int id, UpdateBookDto model)
         {
-            var book = await _context.Books.Where(x => x.BId == id)
+            var book = await _context.Books.Where(x => x.BookId == id)
                                 .FirstOrDefaultAsync();
 
             if (book != null)
@@ -78,7 +83,7 @@ namespace AliBookStoreApi.Repository
             _context.Books.Remove(book);
             await _context.SaveChangesAsync(); */
 
-            var book = await _context.Books.Where(x => x.BId == id)
+            var book = await _context.Books.Where(x => x.BookId == id)
                                 .FirstOrDefaultAsync();
 
             if (book != null)
