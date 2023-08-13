@@ -4,50 +4,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AliBookStoreApi.Migrations
 {
-    public partial class NewEntities : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Books",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "Id",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "Amount",
-                table: "Books");
-
-            migrationBuilder.AddColumn<int>(
-                name: "BookId",
-                table: "Books",
-                nullable: false,
-                defaultValue: 0)
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Author",
-                table: "Books",
-                nullable: true);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Price",
-                table: "Books",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Publisher",
-                table: "Books",
-                nullable: true);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Books",
-                table: "Books",
-                column: "BookId");
-
             migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
@@ -61,6 +21,24 @@ namespace AliBookStoreApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.AuthorId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    BookId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    AuthorId = table.Column<string>(nullable: true),
+                    TranslatorId = table.Column<string>(nullable: true),
+                    PublisherId = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.BookId);
                 });
 
             migrationBuilder.CreateTable(
@@ -111,12 +89,44 @@ namespace AliBookStoreApi.Migrations
                 {
                     table.PrimaryKey("PK_FullAddresses", x => x.AddressId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Publishers",
+                columns: table => new
+                {
+                    PublisherId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(nullable: true),
+                    LastUpdate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Publishers", x => x.PublisherId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Translators",
+                columns: table => new
+                {
+                    TranslatorId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    LastUpdate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Translators", x => x.TranslatorId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Categories");
@@ -127,45 +137,11 @@ namespace AliBookStoreApi.Migrations
             migrationBuilder.DropTable(
                 name: "FullAddresses");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_Books",
-                table: "Books");
+            migrationBuilder.DropTable(
+                name: "Publishers");
 
-            migrationBuilder.DropColumn(
-                name: "BookId",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "Author",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "Price",
-                table: "Books");
-
-            migrationBuilder.DropColumn(
-                name: "Publisher",
-                table: "Books");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Id",
-                table: "Books",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0)
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Amount",
-                table: "Books",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_Books",
-                table: "Books",
-                column: "Id");
+            migrationBuilder.DropTable(
+                name: "Translators");
         }
     }
 }
