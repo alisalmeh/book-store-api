@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AliBookStoreApi.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20230812135458_NewEntities")]
-    partial class NewEntities
+    [Migration("20230813103637_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,7 @@ namespace AliBookStoreApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Author")
+                    b.Property<string>("AuthorId")
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
@@ -58,10 +58,13 @@ namespace AliBookStoreApi.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Publisher")
+                    b.Property<string>("PublisherId")
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TranslatorId")
                         .HasColumnType("text");
 
                     b.HasKey("BookId");
@@ -142,6 +145,45 @@ namespace AliBookStoreApi.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("FullAddresses");
+                });
+
+            modelBuilder.Entity("AliBookStoreApi.Data.Publisher", b =>
+                {
+                    b.Property<int>("PublisherId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("PublisherId");
+
+                    b.ToTable("Publishers");
+                });
+
+            modelBuilder.Entity("AliBookStoreApi.Data.Translator", b =>
+                {
+                    b.Property<int>("TranslatorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastUpdate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("TranslatorId");
+
+                    b.ToTable("Translators");
                 });
 #pragma warning restore 612, 618
         }

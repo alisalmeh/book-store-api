@@ -7,7 +7,7 @@ namespace AliBookStoreApi.Models
 {
     public class BookDetailsDto
     {
-        public int Id { get; set; }
+        public int BookId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
