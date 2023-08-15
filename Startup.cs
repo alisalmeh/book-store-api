@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AliBookStoreApi.Data;
+using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,9 +37,10 @@ namespace AliBookStoreApi
 
             services.AddDbContext<BookStoreContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("BookStoreConnectionString")));
-            
+
             services.AddControllers();
             services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
