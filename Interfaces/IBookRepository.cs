@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliBookStoreApi.Models;
 
-namespace AliBookStoreApi.Repository
+namespace AliBookStoreApi.Interfaces
 {
     public interface IBookRepository
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AliBookStoreApi.Data;
+using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ namespace AliBookStoreApi.Repository
         {
             var books = await _context.Books.Select(x => new BookDetailsDto()
             {
-                BookId = x.BookId,
+                Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
                 Price = x.Price
@@ -31,10 +32,10 @@ namespace AliBookStoreApi.Repository
 
         public async Task<BookDetailsDto> GetBookDetailsById(int id)
         {
-            var book = await _context.Books.Where(x => x.BookId == id)
+            var book = await _context.Books.Where(x => x.Id == id)
                                         .Select(x => new BookDetailsDto()
                                         {
-                                            BookId = x.BookId,
+                                            Id = x.Id,
                                             Title = x.Title,
                                             Description = x.Description,
                                             Price = x.Price
@@ -53,12 +54,12 @@ namespace AliBookStoreApi.Repository
 
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
-            return book.BookId;
+            return book.Id;
         }
 
         public async Task<bool> UpdateBook(int id, UpdateBookDto model)
         {
-            var book = await _context.Books.Where(x => x.BookId == id)
+            var book = await _context.Books.Where(x => x.Id == id)
                                 .FirstOrDefaultAsync();
 
             if (book != null)
@@ -74,7 +75,7 @@ namespace AliBookStoreApi.Repository
 
         public async Task<bool> RemoveBook(int id)
         {
-            var book = await _context.Books.Where(x => x.BookId == id)
+            var book = await _context.Books.Where(x => x.Id == id)
                                 .FirstOrDefaultAsync();
 
             if (book != null)

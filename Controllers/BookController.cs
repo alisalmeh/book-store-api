@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
 using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,13 @@ namespace AliBookStoreApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    public class BookController : ControllerBase
     {
-        private readonly ILogger<BooksController> _logger;
+        private readonly ILogger<BookController> _logger;
         private readonly IBookRepository _booksRepository;
 
-        public BooksController(
-            ILogger<BooksController> logger,
+        public BookController(
+            ILogger<BookController> logger,
             IBookRepository booksRepository)
         {
             _logger = logger;
