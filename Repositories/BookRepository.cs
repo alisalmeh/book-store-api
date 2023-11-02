@@ -24,6 +24,7 @@ namespace AliBookStoreApi.Repository
             {
                 Id = x.Id,
                 Title = x.Title,
+                Author = x.Author,
                 Description = x.Description,
                 Price = x.Price
             }).ToListAsync();
