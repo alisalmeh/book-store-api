@@ -17,7 +17,7 @@ namespace AliBookStoreApi.Models
         public string Description { get; set; }
 
         [Range(1000, 1000000, ErrorMessage = "مبلغ را بین 1000 تا 1000000 وارد کنید")]
-        public int Price { get; set; }
+        public float Price { get; set; }
 
 
     }

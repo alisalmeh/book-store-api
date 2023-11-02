@@ -16,14 +16,5 @@ namespace AliBookStoreApi.Data
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Category> Categories { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Book>()
-                .HasKey(x => x.BookId);
-
-            modelBuilder.Entity<Category>()
-                .HasKey(x => x.CategoryId);
-        }
     }
 }

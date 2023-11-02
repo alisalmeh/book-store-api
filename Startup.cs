@@ -1,4 +1,6 @@
 using AliBookStoreApi.Data;
+using AliBookStoreApi.Interfaces;
+using AliBookStoreApi.Repositories;
 using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +34,7 @@ namespace AliBookStoreApi
 
             services.AddControllers();
             services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
