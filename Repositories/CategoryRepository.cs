@@ -11,6 +11,22 @@ namespace AliBookStoreApi.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        
+        private readonly BookStoreContext _context;
+
+        public CategoryRepository(BookStoreContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<CategoryDetailsDto>> GetAllCategories()
+        {
+            var categories = await _context.Categories.Select(x => new CategoryDetailsDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+            }).ToListAsync();
+            return categories;
+        }
     }
 }
