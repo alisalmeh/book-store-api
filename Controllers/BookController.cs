@@ -14,15 +14,15 @@ namespace AliBookStoreApi.Controllers
     [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
-        private readonly ILogger<BookController> _logger;
         private readonly IBookRepository _booksRepository;
+        private readonly ILogger<BookController> _logger;
 
         public BookController(
-            ILogger<BookController> logger,
-            IBookRepository booksRepository)
+            IBookRepository booksRepository,
+            ILogger<BookController> logger)
         {
-            _logger = logger;
             _booksRepository = booksRepository;
+            _logger = logger;
         }
 
         // route: /api/books
