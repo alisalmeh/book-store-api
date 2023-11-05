@@ -41,5 +41,12 @@ namespace AliBookStoreApi.Controllers
             }
             return Ok(category);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto model)
+        {
+            var id = await _categoriesRepository.CreateCategory(model);
+            return Ok(id);
+        }
     }
 }

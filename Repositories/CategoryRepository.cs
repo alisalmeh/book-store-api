@@ -40,5 +40,18 @@ namespace AliBookStoreApi.Repositories
                                                         }).FirstOrDefaultAsync();
             return category;
         }
+
+        public async Task<int> CreateCategory(CreateCategoryDto model)
+        {
+            var category = new Category()
+            {
+                Name = model.Name,
+                Description = model.Description
+            };
+
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
+            return category.Id;
+        }
     }
 }
