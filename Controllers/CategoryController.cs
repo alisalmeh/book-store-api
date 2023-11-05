@@ -12,21 +12,21 @@ namespace AliBookStoreApi.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoriesRepository;
         private readonly ILogger<CategoryController> _logger;
 
         public CategoryController(
-            ICategoryRepository categoryRepository,
+            ICategoryRepository categoriesRepository,
             ILogger<CategoryController> logger)
         {
-            _categoryRepository = categoryRepository;
+            _categoriesRepository = categoriesRepository;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _categoryRepository.GetAllCategories();
+            var categories = await _categoriesRepository.GetAllCategories();
             return Ok(categories);
         }
     }
