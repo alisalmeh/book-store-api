@@ -14,10 +14,10 @@ namespace AliBookStoreApi.Models
         public string Title { get; set; }
         public string Author { get; set; }
 
-        [MaxLength(30, ErrorMessage = "طول توضیحات بیشتر از 30 کرکتر نمیتواند باشد")]
+        [MaxLength(1000, ErrorMessage = "طول توضیحات بیشتر از 1000 کرکتر نمیتواند باشد")]
         public string Description { get; set; }
 
-        [Range(1000, 1000000, ErrorMessage = "مبلغ را بین 1000 تا 1000000 وارد کنید")]
+        [Range(0, 10000, ErrorMessage = "مبلغ را بین 0 تا 10000 وارد کنید")]
         public float Price { get; set; }
 
 
