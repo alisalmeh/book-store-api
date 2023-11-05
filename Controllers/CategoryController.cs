@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AliBookStoreApi.Interfaces;
+using AliBookStoreApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -28,6 +29,17 @@ namespace AliBookStoreApi.Controllers
         {
             var categories = await _categoriesRepository.GetAllCategories();
             return Ok(categories);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategoryDetailsById(int id)
+        {
+            var category = await _categoriesRepository.GetCategoryDetailsById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
         }
     }
 }

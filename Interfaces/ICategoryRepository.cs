@@ -7,5 +7,6 @@ namespace AliBookStoreApi.Interfaces
     public interface ICategoryRepository
     {
         Task<List<CategoryDetailsDto>> GetAllCategories();
+        Task<CategoryDetailsDto> GetCategoryDetailsById(int id);
     }
 }

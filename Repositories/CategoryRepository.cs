@@ -28,5 +28,17 @@ namespace AliBookStoreApi.Repositories
             }).ToListAsync();
             return categories;
         }
+
+        public async Task<CategoryDetailsDto> GetCategoryDetailsById(int id)
+        {
+            var category = await _context.Categories.Where(x => x.Id == id)
+                                                        .Select(x => new CategoryDetailsDto()
+                                                        {
+                                                            Id = x.Id,
+                                                            Name = x.Name,
+                                                            Description = x.Description,
+                                                        }).FirstOrDefaultAsync();
+            return category;
+        }
     }
 }
