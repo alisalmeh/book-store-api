@@ -12,6 +12,7 @@ namespace AliBookStoreApi.Models
         [Required(ErrorMessage = "لطفا عنوان کتاب را وارد کنید")]
         [BanKeyword]
         public string Title { get; set; }
+        public string Author { get; set; }
 
         [MaxLength(30, ErrorMessage = "طول توضیحات بیشتر از 30 کرکتر نمیتواند باشد")]
         public string Description { get; set; }

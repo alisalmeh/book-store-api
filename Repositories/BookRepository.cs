@@ -48,9 +48,10 @@ namespace AliBookStoreApi.Repository
         {
             var book = new Book()
             {
-                Price = model.Price,
                 Title = model.Title,
-                Description = model.Description
+                Author = model.Author,
+                Description = model.Description,
+                Price = model.Price
             };
 
             _context.Books.Add(book);
