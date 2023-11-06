@@ -38,6 +38,7 @@ namespace AliBookStoreApi.Controllers
         public async Task<IActionResult> GetBookDetailsById(int id)
         {
             var book = await _booksRepository.GetBookDetailsById(id);
+
             if (book == null)
             {
                 return NotFound();
@@ -71,6 +72,7 @@ namespace AliBookStoreApi.Controllers
         public async Task<IActionResult> RemoveBook(int id)
         {
             var result = await _booksRepository.RemoveBook(id);
+            
             if (!result)
             {
                 return BadRequest("This book id does not exist!");

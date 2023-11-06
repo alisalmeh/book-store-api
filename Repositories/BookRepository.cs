@@ -34,13 +34,13 @@ namespace AliBookStoreApi.Repository
         public async Task<BookDetailsDto> GetBookDetailsById(int id)
         {
             var book = await _context.Books.Where(x => x.Id == id)
-                                        .Select(x => new BookDetailsDto()
-                                        {
-                                            Id = x.Id,
-                                            Title = x.Title,
-                                            Description = x.Description,
-                                            Price = x.Price
-                                        }).FirstOrDefaultAsync();
+                                            .Select(x => new BookDetailsDto()
+                                            {
+                                                Id = x.Id,
+                                                Title = x.Title,
+                                                Description = x.Description,
+                                                Price = x.Price
+                                            }).FirstOrDefaultAsync();
             return book;
         }
 
@@ -62,7 +62,7 @@ namespace AliBookStoreApi.Repository
         public async Task<bool> UpdateBook(int id, UpdateBookDto model)
         {
             var book = await _context.Books.Where(x => x.Id == id)
-                                .FirstOrDefaultAsync();
+                                           .FirstOrDefaultAsync();
 
             if (book != null)
             {
@@ -79,7 +79,7 @@ namespace AliBookStoreApi.Repository
         public async Task<bool> RemoveBook(int id)
         {
             var book = await _context.Books.Where(x => x.Id == id)
-                                .FirstOrDefaultAsync();
+                                           .FirstOrDefaultAsync();
 
             if (book != null)
             {
