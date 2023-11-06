@@ -53,5 +53,19 @@ namespace AliBookStoreApi.Repositories
             await _context.SaveChangesAsync();
             return category.Id;
         }
+
+        public async Task<bool> UpdateCategory(UpdateCategoryDto model, int id)
+        {
+            var category = new Category()
+            {
+                Id = id,
+                Name = model.Name,
+                Description = model.Description
+            };
+
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

@@ -48,5 +48,17 @@ namespace AliBookStoreApi.Controllers
             var id = await _categoriesRepository.CreateCategory(model);
             return Ok(id);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryDto model, int id)
+        {
+            var result = await _categoriesRepository.UpdateCategory(model, id);
+
+            if (!result)
+            {
+                return BadRequest("This category id does not exist!");
+            }
+            return Ok(result);
+        }
     }
 }

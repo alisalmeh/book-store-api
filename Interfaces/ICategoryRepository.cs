@@ -9,5 +9,6 @@ namespace AliBookStoreApi.Interfaces
         Task<List<CategoryDetailsDto>> GetAllCategories();
         Task<CategoryDetailsDto> GetCategoryDetailsById(int id);
         Task<int> CreateCategory(CreateCategoryDto model);
+        Task<bool> UpdateCategory(UpdateCategoryDto model, int id);
     }
 }
