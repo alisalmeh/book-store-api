@@ -67,5 +67,19 @@ namespace AliBookStoreApi.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> RemoveCategory(int id)
+        {
+            var category = await _context.Categories.Where(x => x.Id == id)
+                                                    .FirstOrDefaultAsync();
+
+            if (category != null)
+            {
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }

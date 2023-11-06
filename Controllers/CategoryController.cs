@@ -35,6 +35,7 @@ namespace AliBookStoreApi.Controllers
         public async Task<IActionResult> GetCategoryDetailsById(int id)
         {
             var category = await _categoriesRepository.GetCategoryDetailsById(id);
+
             if (category == null)
             {
                 return NotFound();
@@ -55,6 +56,18 @@ namespace AliBookStoreApi.Controllers
             var result = await _categoriesRepository.UpdateCategory(model, id);
 
             if (!result)
+            {
+                return BadRequest("This category id does not exist!");
+            }
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCategory(int id)
+        {
+            var result = await _categoriesRepository.RemoveCategory(id);
+
+            if(!result)
             {
                 return BadRequest("This category id does not exist!");
             }
