@@ -67,6 +67,7 @@ namespace AliBookStoreApi.Repository
             if (book != null)
             {
                 book.Title = model.Title;
+                book.Author = model.Author;
                 book.Description = model.Description;
                 book.Price = model.Price;
                 await _context.SaveChangesAsync();
