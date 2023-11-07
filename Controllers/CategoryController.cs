@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -62,12 +63,24 @@ namespace AliBookStoreApi.Controllers
             return Ok(result);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateCategoryPatch([FromBody] JsonPatchDocument model, int id)
+        {
+            var result = await _categoriesRepository.UpdateCategoryPatch(model, id);
+
+            if (!result)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveCategory(int id)
         {
             var result = await _categoriesRepository.RemoveCategory(id);
 
-            if(!result)
+            if (!result)
             {
                 return BadRequest("This category id does not exist!");
             }

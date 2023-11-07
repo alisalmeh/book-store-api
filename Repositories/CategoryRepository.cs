@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AliBookStoreApi.Data;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace AliBookStoreApi.Repositories
@@ -66,6 +67,20 @@ namespace AliBookStoreApi.Repositories
             _context.Categories.Update(category);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> UpdateCategoryPatch(JsonPatchDocument model, int id)
+        {
+            var category = await _context.Categories.Where(x => x.Id == id)
+                                                     .FirstOrDefaultAsync();
+
+            if (category != null)
+            {
+                model.ApplyTo(category);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         public async Task<bool> RemoveCategory(int id)
