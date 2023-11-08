@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
-using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,7 +21,7 @@ namespace AliBookStoreApi.Controllers
             _logger = logger;
         }
 
-        // route: /api/books
+        // route: /api/book
         [HttpGet]
         public async Task<IActionResult> GetAllBooks()
         {
@@ -33,11 +29,12 @@ namespace AliBookStoreApi.Controllers
             return Ok(books);
         }
 
-        // route: /api/books/{id}
+        // route: /api/book/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookDetailsById(int id)
         {
             var book = await _booksRepository.GetBookDetailsById(id);
+
             if (book == null)
             {
                 return NotFound();
@@ -45,7 +42,7 @@ namespace AliBookStoreApi.Controllers
             return Ok(book);
         }
 
-        // route: /api/books
+        // route: /api/book
         [HttpPost]
         public async Task<IActionResult> CreateBook([FromBody] CreateBookDto model)
         {
@@ -53,7 +50,7 @@ namespace AliBookStoreApi.Controllers
             return Ok(id);
         }
 
-        // route: /api/books/{id}
+        // route: /api/book/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBook(int id, [FromBody] UpdateBookDto model)
         {
@@ -66,11 +63,12 @@ namespace AliBookStoreApi.Controllers
             return Ok(result);
         }
 
-        // route: /api/books/{id}
+        // route: /api/book/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveBook(int id)
         {
             var result = await _booksRepository.RemoveBook(id);
+            
             if (!result)
             {
                 return BadRequest("This book id does not exist!");

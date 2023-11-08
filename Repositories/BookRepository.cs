@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,27 +19,31 @@ namespace AliBookStoreApi.Repository
 
         public async Task<List<BookDetailsDto>> GetAllBooks()
         {
-            var books = await _context.Books.Select(x => new BookDetailsDto()
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Author = x.Author,
-                Description = x.Description,
-                Price = x.Price
-            }).ToListAsync();
+            var books = await _context.Books
+                .Select(x => new BookDetailsDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Author = x.Author,
+                    Description = x.Description,
+                    Price = x.Price
+                })
+                .ToListAsync();
             return books;
         }
 
         public async Task<BookDetailsDto> GetBookDetailsById(int id)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                        .Select(x => new BookDetailsDto()
-                                        {
-                                            Id = x.Id,
-                                            Title = x.Title,
-                                            Description = x.Description,
-                                            Price = x.Price
-                                        }).FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .Select(x => new BookDetailsDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Price = x.Price
+                })
+                .FirstOrDefaultAsync();
             return book;
         }
 
@@ -48,9 +51,10 @@ namespace AliBookStoreApi.Repository
         {
             var book = new Book()
             {
-                Price = model.Price,
                 Title = model.Title,
-                Description = model.Description
+                Author = model.Author,
+                Description = model.Description,
+                Price = model.Price
             };
 
             _context.Books.Add(book);
@@ -60,12 +64,14 @@ namespace AliBookStoreApi.Repository
 
         public async Task<bool> UpdateBook(int id, UpdateBookDto model)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                .FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (book != null)
             {
                 book.Title = model.Title;
+                book.Author = model.Author;
                 book.Description = model.Description;
                 book.Price = model.Price;
                 await _context.SaveChangesAsync();
@@ -76,8 +82,9 @@ namespace AliBookStoreApi.Repository
 
         public async Task<bool> RemoveBook(int id)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                .FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (book != null)
             {

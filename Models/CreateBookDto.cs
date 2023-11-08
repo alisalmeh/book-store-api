@@ -1,24 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using AliBookStoreApi.Validations;
 
 namespace AliBookStoreApi.Models
 {
     public class CreateBookDto
     {
-        [Required(ErrorMessage = "لطفا عنوان کتاب را وارد کنید")]
+        [Required(ErrorMessage = "Title is required")]
         [BanKeyword]
         public string Title { get; set; }
 
-        [MaxLength(30, ErrorMessage = "طول توضیحات بیشتر از 30 کرکتر نمیتواند باشد")]
+        [Required(ErrorMessage = "Author is required")]
+        public string Author { get; set; }
+
+        [MaxLength(500, ErrorMessage = "500 character")]
         public string Description { get; set; }
 
-        [Range(1000, 1000000, ErrorMessage = "مبلغ را بین 1000 تا 1000000 وارد کنید")]
+        [Range(0, 5000, ErrorMessage = "price should be between 0 and 5000")]
         public float Price { get; set; }
-
-
     }
 }
