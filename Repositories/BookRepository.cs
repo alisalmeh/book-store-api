@@ -19,27 +19,31 @@ namespace AliBookStoreApi.Repository
 
         public async Task<List<BookDetailsDto>> GetAllBooks()
         {
-            var books = await _context.Books.Select(x => new BookDetailsDto()
-            {
-                Id = x.Id,
-                Title = x.Title,
-                Author = x.Author,
-                Description = x.Description,
-                Price = x.Price
-            }).ToListAsync();
+            var books = await _context.Books
+                .Select(x => new BookDetailsDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Author = x.Author,
+                    Description = x.Description,
+                    Price = x.Price
+                })
+                .ToListAsync();
             return books;
         }
 
         public async Task<BookDetailsDto> GetBookDetailsById(int id)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                            .Select(x => new BookDetailsDto()
-                                            {
-                                                Id = x.Id,
-                                                Title = x.Title,
-                                                Description = x.Description,
-                                                Price = x.Price
-                                            }).FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .Select(x => new BookDetailsDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Price = x.Price
+                })
+                .FirstOrDefaultAsync();
             return book;
         }
 
@@ -60,8 +64,9 @@ namespace AliBookStoreApi.Repository
 
         public async Task<bool> UpdateBook(int id, UpdateBookDto model)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                           .FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (book != null)
             {
@@ -77,8 +82,9 @@ namespace AliBookStoreApi.Repository
 
         public async Task<bool> RemoveBook(int id)
         {
-            var book = await _context.Books.Where(x => x.Id == id)
-                                           .FirstOrDefaultAsync();
+            var book = await _context.Books
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
 
             if (book != null)
             {
