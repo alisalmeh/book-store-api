@@ -32,7 +32,8 @@ namespace AliBookStoreApi
             services.AddDbContext<BookStoreContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("BookStoreConnectionString")));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
+            
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
