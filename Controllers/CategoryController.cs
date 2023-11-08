@@ -61,9 +61,9 @@ namespace AliBookStoreApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateCategoryPatch([FromBody] JsonPatchDocument model, int id)
+        public async Task<IActionResult> PartialUpdateCategory([FromBody] JsonPatchDocument<UpdateCategoryDto> model, int id)
         {
-            var result = await _categoriesRepository.UpdateCategoryPatch(model, id);
+            var result = await _categoriesRepository.PartialUpdateCategory(model, id);
 
             if (!result)
             {
