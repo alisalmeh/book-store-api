@@ -9,17 +9,17 @@ namespace AliBookStoreApi.Models
 {
     public class CreateBookDto
     {
-        [Required(ErrorMessage = "لطفا عنوان کتاب را وارد کنید")]
+        [Required(ErrorMessage = "Title is required")]
         [BanKeyword]
         public string Title { get; set; }
+
+        [Required(ErrorMessage = "Author is required")]
         public string Author { get; set; }
 
-        [MaxLength(1000, ErrorMessage = "طول توضیحات بیشتر از 1000 کرکتر نمیتواند باشد")]
+        [MaxLength(500, ErrorMessage = "500 character")]
         public string Description { get; set; }
 
-        [Range(0, 10000, ErrorMessage = "مبلغ را بین 0 تا 10000 وارد کنید")]
+        [Range(0, 5000, ErrorMessage = "price should be between 0 and 5000")]
         public float Price { get; set; }
-
-
     }
 }
