@@ -22,7 +22,7 @@ namespace AliBookStoreApi.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPost("/register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             var result = await _accountRepository.Register(registerDto);
@@ -31,7 +31,7 @@ namespace AliBookStoreApi.Controllers
             {
                 return Ok();
             }
-            return BadRequest(result.Errors.Select(x => x.Description));
+            return BadRequest(result.Errors.Select(x => x.Description).ToList());
         }
     }
 }
