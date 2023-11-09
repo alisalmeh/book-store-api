@@ -4,6 +4,7 @@ using AliBookStoreApi.Repositories;
 using AliBookStoreApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,8 +33,12 @@ namespace AliBookStoreApi
             services.AddDbContext<BookStoreContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("BookStoreConnectionString")));
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<BookStoreContext>()
+                    .AddDefaultTokenProviders();
+
             services.AddControllers().AddNewtonsoftJson();
-            
+
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
