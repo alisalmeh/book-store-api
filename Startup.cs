@@ -1,7 +1,9 @@
+using System.Text;
 using AliBookStoreApi.Data;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Repositories;
 using AliBookStoreApi.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace AliBookStoreApi
@@ -37,6 +40,27 @@ namespace AliBookStoreApi
                     .AddEntityFrameworkStores<BookStoreContext>()
                     .AddDefaultTokenProviders();
 
+            services
+            .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+            .AddJwtBearer(opt =>
+                {
+                    opt.SaveToken = true;
+                    opt.RequireHttpsMetadata = false;
+                    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidIssuer = Configuration["JTW : ValidIssuer"],
+                        ValidAudience = Configuration["JTW : ValidAudience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JTW : Sercret"]))
+                    };
+                });
+
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddTransient<IBookRepository, BookRepository>();
@@ -62,6 +86,7 @@ namespace AliBookStoreApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
