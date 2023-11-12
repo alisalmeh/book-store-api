@@ -51,7 +51,7 @@ namespace AliBookStoreApi
                 {
                     opt.SaveToken = true;
                     opt.RequireHttpsMetadata = false;
-                    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    opt.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
