@@ -7,5 +7,6 @@ namespace AliBookStoreApi.Interfaces
     public interface IAccountRepository
     {
         Task<IdentityResult> Register(RegisterDto registerDto);
+        Task<string> Login(LoginDto loginDto);
     }
 }
