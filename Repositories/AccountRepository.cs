@@ -57,11 +57,12 @@ namespace AliBookStoreApi.Repositories
         {
             var claims = new List<Claim>()
             {
-                new Claim (ClaimTypes.Name, loginDto.UserName)
+                new Claim (ClaimTypes.Name, loginDto.UserName),
+                new Claim (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken
             (
