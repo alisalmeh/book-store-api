@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ namespace AliBookStoreApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoriesRepository;
@@ -23,6 +25,7 @@ namespace AliBookStoreApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _categoriesRepository.GetAllCategories();

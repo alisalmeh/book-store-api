@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AliBookStoreApi.Interfaces;
 using AliBookStoreApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -8,6 +9,8 @@ namespace AliBookStoreApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class BookController : ControllerBase
     {
         private readonly IBookRepository _booksRepository;
@@ -23,6 +26,7 @@ namespace AliBookStoreApi.Controllers
 
         // route: /api/book
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllBooks()
         {
             var books = await _booksRepository.GetAllBooks();
@@ -68,7 +72,7 @@ namespace AliBookStoreApi.Controllers
         public async Task<IActionResult> RemoveBook(int id)
         {
             var result = await _booksRepository.RemoveBook(id);
-            
+
             if (!result)
             {
                 return BadRequest("This book id does not exist!");

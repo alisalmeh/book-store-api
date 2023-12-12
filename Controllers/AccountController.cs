@@ -33,5 +33,17 @@ namespace AliBookStoreApi.Controllers
             }
             return BadRequest(result.Errors.Select(x => x.Description).ToList());
         }
+
+        [HttpPost("/login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            var result = await _accountRepository.Login(loginDto);
+
+            if (string.IsNullOrEmpty(result))
+            {
+                return Unauthorized("Username or Password is wrong!");
+            }
+            return Ok(result);
+        }
     }
 }
