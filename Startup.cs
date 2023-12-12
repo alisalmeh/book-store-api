@@ -54,7 +54,6 @@ namespace AliBookStoreApi
                             }
                         },
                         new string[] {}
-                        // new List<string> ()
                     }
                 });
             });

@@ -39,11 +39,11 @@ namespace AliBookStoreApi.Controllers
         {
             var result = await _accountRepository.Login(loginDto);
 
-            if (!string.IsNullOrEmpty(result))
+            if (string.IsNullOrEmpty(result))
             {
-                return Ok(result);
+                return Unauthorized("Username or Password is wrong!");
             }
-            return NotFound("Username or Password is wrong!");
+            return Ok(result);
         }
     }
 }
